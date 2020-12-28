@@ -8,16 +8,44 @@
 //#include<graphics.h>
 
 int flag= 1;
-
+int translateX=0,translateY=0;
 void display();
 void reshape(int w, int h);
 
 void init(){ glClearColor(0.529, 0.808, 0.922, 0); }
 
 void timer(int);
-//float x=0; //global variable
-//int flag =1; // 1 =right 0 = left
-void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
+void OnMouseClick(int button, int state, int x, int y)
+{
+  if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+  {
+     //store the x,y value where the click happened
+    translateX--;
+  }
+}
+
+void keyboard(unsigned char Key, int x, int y){
+
+    switch(Key){
+        case 'd' : translateX++;
+        break;
+
+        case 'a' : translateX--;
+        break;
+
+        case 'w' : translateY++;
+        break;
+
+        case 's' : translateY--;
+        break;
+
+        case 'f' : glutFullScreen();
+        break;
+
+        case 27 : exit(0);
+        break;
+    }
+}
 
 int main(int argc, char**argv){
 
@@ -34,6 +62,8 @@ int main(int argc, char**argv){
     //function that displays my display function // function that reshapes with my reshape function
     glutDisplayFunc(display); // the parameter is my display function which is initialized before main
     glutReshapeFunc(reshape); // the parameters are my reshape function
+    glutKeyboardFunc(keyboard);
+    glutMouseFunc(OnMouseClick);
     glutTimerFunc(1000,timer,0); // function will wait time given, then runs the function we pointing to
      // setting back ground color;
 
@@ -48,7 +78,16 @@ int main(int argc, char**argv){
         glLoadIdentity(); // resets coordination / replace current matrix with I matrix // for example when using glTranslate or glRotate
         //(translating matrix current position not from origin so glLoadIdentity to start from origin
 
+         glColor3f(1,0,1);
+            glBegin(GL_POLYGON);
+            glVertex2f(5+translateX,-5+translateY);
+            glVertex2f(5+translateX,-8+translateY);
+            glVertex2f(2+translateX,-8+translateY);
+            glVertex2f(2+translateX,-5+translateY);
+            glEnd();
 
+
+    glFlush();
 
           glutSwapBuffers();
     }
@@ -71,31 +110,3 @@ int main(int argc, char**argv){
         glutPostRedisplay();
     }
 
-//    void keyboard(unsigned char Key, int x, int y){ // int x , int y if we are using mouse so we take position of mouse
-//
-//        switch(Key){
-//
-//            case 'd':
-//                break
-//
-//            case 'a':
-//                break
-//
-//            case 'w':
-//                break
-//
-//            case 's':
-//                break
-//
-//            case 27: exit();
-//            break
-//        }
-//
-//    }
-
-//    void OnMouseClick(int button, int state, int x, int y){
-//        if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-//            //store the x,y value where the click happened
-//        }
-//
-//    }
