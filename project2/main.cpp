@@ -5,18 +5,14 @@
 #include<stdlib.h>
 #include<windows.h>
 #include<math.h>
-
-//#include "BadprogRotate.h"
+//#include<graphics.h>
 
 int flag= 1;
 
-//float alpha;
 void display();
 void reshape(int w, int h);
 
- //global variables 0.412, 0.412, 0.412,0.55
-//void bezierCoefficients(int n, int *c);
-void init(){    glClearColor(0.529, 0.808, 0.922, 0); }
+void init(){ glClearColor(0.529, 0.808, 0.922, 0); }
 
 void timer(int);
 //float x=0; //global variable
@@ -72,11 +68,27 @@ int main(int argc, char**argv){
         glutTimerFunc(1000/60,timer,0); // Recursion to keep looping to keep animation going // (time in second / number of frames , timer , 0)
 
 
-
-
-
-
         glutPostRedisplay();
     }
 
-
+//    void keyboard(unsigned char Key, int x, int y){
+//
+//        switch(Key){
+//
+//            case 'd':
+//                break
+//
+//            case 'a':
+//                break
+//
+//            case 'w':
+//                break
+//
+//            case 's':
+//                break
+//
+//            case 27: exit();
+//            break
+//        }
+//
+//    }
