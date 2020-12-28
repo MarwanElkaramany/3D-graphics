@@ -71,7 +71,7 @@ int main(int argc, char**argv){
         glutPostRedisplay();
     }
 
-//    void keyboard(unsigned char Key, int x, int y){
+//    void keyboard(unsigned char Key, int x, int y){ // int x , int y if we are using mouse so we take position of mouse
 //
 //        switch(Key){
 //
@@ -89,6 +89,13 @@ int main(int argc, char**argv){
 //
 //            case 27: exit();
 //            break
+//        }
+//
+//    }
+
+//    void OnMouseClick(int button, int state, int x, int y){
+//        if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+//            //store the x,y value where the click happened
 //        }
 //
 //    }
