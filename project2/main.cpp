@@ -16,6 +16,9 @@ void init(){ glClearColor(1,1,1,0); }
 void idleFunc();
 float xRotated = 90.0, yRotated = 0.0, zRotated = 0.0;
 void timer(int);
+GLfloat anglePyramid = 0.0f;  // Rotational angle for pyramid
+GLfloat angleCube = 0.0f;     // Rotational angle for cube
+int refreshMills = 15;        // refresh interval in milliseconds
 //void OnMouseClick(int button, int state, int x, int y)
 //{
 //  if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
@@ -106,10 +109,10 @@ int main(int argc, char**argv){
     glutReshapeFunc(reshape); // the parameters are my reshape function
 //    glutKeyboardFunc(keyboard);
 //    glutMouseFunc(OnMouseClick);
-    glutTimerFunc(1000,timer,0); // function will wait time given, then runs the function we pointing to
+   // glutTimerFunc(1000,timer,0); // function will wait time given, then runs the function we pointing to
      // setting back ground color;
     glutIdleFunc(idleFunc);
-
+    glutTimerFunc(0, timer, 0);     // First timer call immediately
     glClearColor(1,1,1,1);
     texture(); // function controlling light etc...
     glutMainLoop();//looping main to update changes
@@ -122,8 +125,8 @@ int main(int argc, char**argv){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // buffer saves color on screen / the glclear clears cashe from previous displays
         glLoadIdentity(); // resets coordination / replace current matrix with I matrix // for example when using glTranslate or glRotate
         //(translating matrix current position not from origin so glLoadIdentity to start from origin
-        glTranslatef(0.0,0.0,-15.0);
-        glRotatef(10,1,1,0);
+       // glTranslatef(0.0,0.0,-15.0);
+        //glRotatef(10,1,1,0);
 //         glColor3f(1,0,1);
 //            glBegin(GL_POLYGON);
 //            glVertex2f(5+translateX,-5+translateY);
@@ -132,16 +135,18 @@ int main(int argc, char**argv){
 //            glVertex2f(2+translateX,-5+translateY);
 //            glEnd();
 //
-
-
+    glTranslatef(1.5f, 0.0f, -7.0f);
+    glRotatef(angleCube, 1.0f, 1.0f, 1.0f);  // Rotate about (1,1,1)-axis
 
       //  sphere();
        // triangle();
         //cube();
 
-   glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
+        glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
       // Top face (y = 1.0f)
       // Define vertices in counter-clockwise (CCW) order with normal pointing out
+
+
       glColor3f(0.0f, 1.0f, 0.0f);     // Green
       glVertex3f( 1.0f, 1.0f, -1.0f);
       glVertex3f(-1.0f, 1.0f, -1.0f);
@@ -187,7 +192,7 @@ int main(int argc, char**argv){
    // Render a pyramid consists of 4 triangles
    glLoadIdentity();                  // Reset the model-view matrix
    glTranslatef(-1.5f, 0.0f, -6.0f);  // Move left and into the screen
-
+    glRotatef(anglePyramid, 1.0f, 1.0f, 0.0f);  // Rotate about the (1,1,0)-axis
    glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
       // Front
       glColor3f(1.0f, 0.0f, 0.0f);     // Red
@@ -225,12 +230,23 @@ int main(int argc, char**argv){
            // glFlush();
 
           glutSwapBuffers();
+    // Update the rotational angle after each refresh [NEW]
+   anglePyramid += 0.2f;
+   angleCube -= 0.15f;
     }
 void idleFunc (void)
 {
    // zRotated += 1;
     glutPostRedisplay();
 }
+    void timer(int ){
+        glutPostRedisplay();// function that is responsible to run display function again // display function will run again after first time and then swap buffers displaying new drawing position
+       // glutTimerFunc(1000/60,timer,0); // Recursion to keep looping to keep animation going // (time in second / number of frames , timer , 0)
+
+        glutTimerFunc(refreshMills, timer, 0);
+        glutPostRedisplay();
+    }
+
     void reshape(int w, int h){
         glViewport(0,0,(GLsizei)w , (GLsizei)h) ;// el makan el b3red meno el shasha bt3ti
 
@@ -242,13 +258,7 @@ void idleFunc (void)
 
     }
 
-    void timer(int ){
-        glutPostRedisplay();// function that is responsible to run display function again // display function will run again after first time and then swap buffers displaying new drawing position
-        glutTimerFunc(1000/60,timer,0); // Recursion to keep looping to keep animation going // (time in second / number of frames , timer , 0)
 
-
-        glutPostRedisplay();
-    }
  void texture (void){
 
     const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
