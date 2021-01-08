@@ -13,7 +13,8 @@ void display();
 void reshape(int w, int h);
 void texture (void);
 void init(){ glClearColor(1,1,1,0); }
-
+void idleFunc();
+float xRotated = 90.0, yRotated = 0.0, zRotated = 0.0;
 void timer(int);
 //void OnMouseClick(int button, int state, int x, int y)
 //{
@@ -66,6 +67,8 @@ int main(int argc, char**argv){
 //    glutMouseFunc(OnMouseClick);
     glutTimerFunc(1000,timer,0); // function will wait time given, then runs the function we pointing to
      // setting back ground color;
+    glutIdleFunc(idleFunc);
+
     glClearColor(1,1,1,1);
     texture(); // function controlling light etc...
     glutMainLoop();//looping main to update changes
@@ -78,7 +81,7 @@ int main(int argc, char**argv){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // buffer saves color on screen / the glclear clears cashe from previous displays
         glLoadIdentity(); // resets coordination / replace current matrix with I matrix // for example when using glTranslate or glRotate
         //(translating matrix current position not from origin so glLoadIdentity to start from origin
-
+        glTranslatef(0.0,0.0,-15.0);
 //         glColor3f(1,0,1);
 //            glBegin(GL_POLYGON);
 //            glVertex2f(5+translateX,-5+translateY);
@@ -87,13 +90,43 @@ int main(int argc, char**argv){
 //            glVertex2f(2+translateX,-5+translateY);
 //            glEnd();
 //
-            glTranslatef(0.0,0.0,-15.0);
+            glPushMatrix();
+            glColor3f(1,0,0);
             glutSolidSphere(2,20,20);
+            glPopMatrix();
+
+
+        glPushMatrix();
+        glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
+      // Front
+
+      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f( -5, -4, -5);
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(-6, -6, -4);
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(-4, -6, -4);
+
+      // Right
+      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f(-5, -4, -5);
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(-4, -6, -4);
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(-4, -6, -6);
+
+
+   glEnd();   // Done drawing the pyramid
+       glPushMatrix();
            // glFlush();
 
           glutSwapBuffers();
     }
-
+void idleFunc (void)
+{
+   // zRotated += 1;
+    glutPostRedisplay();
+}
     void reshape(int w, int h){
         glViewport(0,0,(GLsizei)w , (GLsizei)h) ;// el makan el b3red meno el shasha bt3ti
 
