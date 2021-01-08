@@ -135,7 +135,7 @@ int main(int argc, char**argv){
 //            glVertex2f(2+translateX,-5+translateY);
 //            glEnd();
 //
-    glTranslatef(1.5f, 0.0f, -7.0f);
+    glTranslatef(1.5f, 0.0f, -15.0f);
     glRotatef(angleCube, 1.0f, 1.0f, 1.0f);  // Rotate about (1,1,1)-axis
 
       //  sphere();
@@ -231,8 +231,8 @@ int main(int argc, char**argv){
 
           glutSwapBuffers();
     // Update the rotational angle after each refresh [NEW]
-   anglePyramid += 0.2f;
-   angleCube -= 0.15f;
+   anglePyramid += 0.1f;
+   angleCube -= 0.05f;
     }
 void idleFunc (void)
 {
