@@ -50,29 +50,44 @@ int refreshMills = 15;        // refresh interval in milliseconds
 //        break;
 //    }
 //}
-void triangle(){
-    glPushMatrix();
-    glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
+void triangle( int y){
+    glLoadIdentity();                  // Reset the model-view matrix
+   glTranslatef(-5.5f, y, -20.0f);  // Move left and into the screen
+    glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);  // Rotate about the (1,1,0)-axis
+   glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
       // Front
-   // glPushMatrix();
       glColor3f(1.0f, 0.0f, 0.0f);     // Red
-      glVertex3f( -3.0f, -2.0f, -3.0f);
+      glVertex3f( 0.0f, 1.0f, 0.0f);
       glColor3f(0.0f, 1.0f, 0.0f);     // Green
-      glVertex3f(-4.0f, -4.0f, -2.0f);
+      glVertex3f(-1.0f, -1.0f, 1.0f);
       glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-      glVertex3f(-2.0f, -4.0f, -2.0f);
+      glVertex3f(1.0f, -1.0f, 1.0f);
 
       // Right
       glColor3f(1.0f, 0.0f, 0.0f);     // Red
-      glVertex3f(-3.0f, -2.0f, -3.0f);
+      glVertex3f(0.0f, 1.0f, 0.0f);
       glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-      glVertex3f(-2.0f, -4.0f, -2.0f);
+      glVertex3f(1.0f, -1.0f, 1.0f);
       glColor3f(0.0f, 1.0f, 0.0f);     // Green
-      glVertex3f(-2.0f, -4.0f, -4.0f);
+      glVertex3f(1.0f, -1.0f, -1.0f);
 
+      // Back
+      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f(0.0f, 1.0f, 0.0f);
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(1.0f, -1.0f, -1.0f);
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(-1.0f, -1.0f, -1.0f);
 
-        glEnd();   // Done drawing the pyramid
-       glPopMatrix();
+      // Left
+      glColor3f(1.0f,0.0f,0.0f);       // Red
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+      glColor3f(0.0f,0.0f,1.0f);       // Blue
+      glVertex3f(-1.0f,-1.0f,-1.0f);
+      glColor3f(0.0f,1.0f,0.0f);       // Green
+      glVertex3f(-1.0f,-1.0f, 1.0f);
+   glEnd();   // Done drawing the pyramid
+
 
        }
 
@@ -113,7 +128,7 @@ int main(int argc, char**argv){
      // setting back ground color;
     glutIdleFunc(idleFunc);
     glutTimerFunc(0, timer, 0);     // First timer call immediately
-    glClearColor(1,1,1,1);
+    glClearColor(0,0,0,0);
     texture(); // function controlling light etc...
     glutMainLoop();//looping main to update changes
 
@@ -190,48 +205,14 @@ int main(int argc, char**argv){
         glEnd();  // End of drawing color-cube
 
    // Render a pyramid consists of 4 triangles
-   glLoadIdentity();                  // Reset the model-view matrix
-   glTranslatef(-1.5f, 0.0f, -6.0f);  // Move left and into the screen
-    glRotatef(anglePyramid, 1.0f, 1.0f, 0.0f);  // Rotate about the (1,1,0)-axis
-   glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
-      // Front
-      glColor3f(1.0f, 0.0f, 0.0f);     // Red
-      glVertex3f( 0.0f, 1.0f, 0.0f);
-      glColor3f(0.0f, 1.0f, 0.0f);     // Green
-      glVertex3f(-1.0f, -1.0f, 1.0f);
-      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-      glVertex3f(1.0f, -1.0f, 1.0f);
-
-      // Right
-      glColor3f(1.0f, 0.0f, 0.0f);     // Red
-      glVertex3f(0.0f, 1.0f, 0.0f);
-      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-      glVertex3f(1.0f, -1.0f, 1.0f);
-      glColor3f(0.0f, 1.0f, 0.0f);     // Green
-      glVertex3f(1.0f, -1.0f, -1.0f);
-
-      // Back
-      glColor3f(1.0f, 0.0f, 0.0f);     // Red
-      glVertex3f(0.0f, 1.0f, 0.0f);
-      glColor3f(0.0f, 1.0f, 0.0f);     // Green
-      glVertex3f(1.0f, -1.0f, -1.0f);
-      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-      glVertex3f(-1.0f, -1.0f, -1.0f);
-
-      // Left
-      glColor3f(1.0f,0.0f,0.0f);       // Red
-      glVertex3f( 0.0f, 1.0f, 0.0f);
-      glColor3f(0.0f,0.0f,1.0f);       // Blue
-      glVertex3f(-1.0f,-1.0f,-1.0f);
-      glColor3f(0.0f,1.0f,0.0f);       // Green
-      glVertex3f(-1.0f,-1.0f, 1.0f);
-   glEnd();   // Done drawing the pyramid
-
+    triangle(0);
+    triangle(1);
+    triangle(2);
            // glFlush();
 
           glutSwapBuffers();
     // Update the rotational angle after each refresh [NEW]
-   anglePyramid += 0.1f;
+  // anglePyramid += 0.1f;
    angleCube -= 0.05f;
     }
 void idleFunc (void)
