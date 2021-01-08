@@ -47,7 +47,48 @@ void timer(int);
 //        break;
 //    }
 //}
+void triangle(){
+    glPushMatrix();
+    glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
+      // Front
+    glPushMatrix();
+      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f( -3.0f, -2.0f, -3.0f);
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(-4.0f, -4.0f, -2.0f);
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(-2.0f, -4.0f, -2.0f);
 
+      // Right
+      glColor3f(1.0f, 0.0f, 0.0f);     // Red
+      glVertex3f(-3.0f, -2.0f, -3.0f);
+      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+      glVertex3f(-2.0f, -4.0f, -2.0f);
+      glColor3f(0.0f, 1.0f, 0.0f);     // Green
+      glVertex3f(-2.0f, -4.0f, -4.0f);
+
+
+        glEnd();   // Done drawing the pyramid
+       glPopMatrix();
+
+       }
+
+void cube(){
+
+    glColor3f(1,1,0);
+    glPushMatrix();
+//    glTranslated(-153,-3,-50);
+//    glRotatef(190,2,2,0);
+    glutSolidCube(0.5);
+    glPopMatrix();
+}
+void sphere(){
+            glPushMatrix();
+
+            glColor3f(1,0,0);
+            glutSolidSphere(2,20,20);
+            glPopMatrix();
+}
 int main(int argc, char**argv){
 
     glutInit(&argc , argv); // initialize glut
@@ -82,6 +123,7 @@ int main(int argc, char**argv){
         glLoadIdentity(); // resets coordination / replace current matrix with I matrix // for example when using glTranslate or glRotate
         //(translating matrix current position not from origin so glLoadIdentity to start from origin
         glTranslatef(0.0,0.0,-15.0);
+        glRotatef(10,1,1,0);
 //         glColor3f(1,0,1);
 //            glBegin(GL_POLYGON);
 //            glVertex2f(5+translateX,-5+translateY);
@@ -90,34 +132,12 @@ int main(int argc, char**argv){
 //            glVertex2f(2+translateX,-5+translateY);
 //            glEnd();
 //
-            glPushMatrix();
-            glColor3f(1,0,0);
-            glutSolidSphere(2,20,20);
-            glPopMatrix();
 
 
-        glPushMatrix();
-        glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
-      // Front
 
-      glColor3f(1.0f, 0.0f, 0.0f);     // Red
-      glVertex3f( -5, -4, -5);
-      glColor3f(0.0f, 1.0f, 0.0f);     // Green
-      glVertex3f(-6, -6, -4);
-      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-      glVertex3f(-4, -6, -4);
-
-      // Right
-      glColor3f(1.0f, 0.0f, 0.0f);     // Red
-      glVertex3f(-5, -4, -5);
-      glColor3f(0.0f, 0.0f, 1.0f);     // Blue
-      glVertex3f(-4, -6, -4);
-      glColor3f(0.0f, 1.0f, 0.0f);     // Green
-      glVertex3f(-4, -6, -6);
-
-
-   glEnd();   // Done drawing the pyramid
-       glPushMatrix();
+      //  sphere();
+        triangle();
+        cube();
            // glFlush();
 
           glutSwapBuffers();
