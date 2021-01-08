@@ -12,7 +12,7 @@ int translateX=0,translateY=0;
 void display();
 void reshape(int w, int h);
 void texture (void);
-void init(){ glClearColor(0.529, 0.808, 0.922, 0); }
+void init(){ glClearColor(1,1,1,0); }
 
 void timer(int);
 //void OnMouseClick(int button, int state, int x, int y)
@@ -50,7 +50,7 @@ void timer(int);
 int main(int argc, char**argv){
 
     glutInit(&argc , argv); // initialize glut
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE );// display mode / goint to use rgb colors / and going to use double buffer for animation
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE |GLUT_DEPTH);// display mode / goint to use rgb colors / and going to use double buffer for animation
     //initialize window
     glutInitWindowPosition(700,200);
     glutInitWindowSize(800,700);
@@ -66,6 +66,7 @@ int main(int argc, char**argv){
 //    glutMouseFunc(OnMouseClick);
     glutTimerFunc(1000,timer,0); // function will wait time given, then runs the function we pointing to
      // setting back ground color;
+    glClearColor(1,1,1,1);
     texture(); // function controlling light etc...
     glutMainLoop();//looping main to update changes
 
@@ -86,6 +87,7 @@ int main(int argc, char**argv){
 //            glVertex2f(2+translateX,-5+translateY);
 //            glEnd();
 //
+            glTranslatef(0.0,0.0,-15.0);
             glutSolidSphere(2,20,20);
            // glFlush();
 
