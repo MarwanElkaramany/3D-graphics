@@ -225,3 +225,11 @@
 1341006774 c:\program files (x86)\codeblocks\mingw\include\math.h
 	<_mingw.h>
 
+1610235308 source:c:\users\marwan\onedrive\documents\github\3d-graphics\project2\main.cpp
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<stdlib.h>
+	<windows.h>
+	<math.h>
+

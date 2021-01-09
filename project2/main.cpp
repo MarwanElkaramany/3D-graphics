@@ -8,6 +8,7 @@
 //#include<graphics.h>
 static int slices = 16;
 static int stacks = 16;
+static int useFog = 0;
 float moonx=0,moony=0;
 float sunx=0,suny=0;
 float boatx;
@@ -81,7 +82,14 @@ void keyboard(unsigned char Key, int x, int y){
             }
             break;
 
-        case 'f' : glutFullScreen();
+        case 'F' : glutFullScreen();
+        break;
+
+        case 'f' : {
+            useFog = !useFog;
+            useFog ? glEnable(GL_FOG) : glDisable(GL_FOG);
+            glutPostRedisplay();
+            }
         break;
 
         case 'r' :
@@ -363,7 +371,7 @@ int main(int argc, char**argv){
 
             glPushMatrix();
             glColor3f(1.000, 0.647, 0.000);
-            glTranslatef(-5.0, 5.0f, -20.0f);
+            glTranslatef(-7.0, 6.0f, -20.0f);
             glRotatef(anglePyramid,1,1,1);
           //glScalef(2,2,2);
 
@@ -412,10 +420,22 @@ int main(int argc, char**argv){
         /////////////////////////////////////////////////
 
 
-    glLoadIdentity();
+    glLoadIdentity();//clowd
         glColor3d(1,1,1);
         glPushMatrix();
         glTranslated(3.4+x,6,-20);
+        glRotated(60,1,0,0);
+        glutSolidSphere(.4,20,20);
+        glPopMatrix();
+        glColor3d(1,1,1);
+        glPushMatrix();
+        glTranslated(3.2+x,5.9,-20.1);
+        glRotated(60,1,0,0);
+        glutSolidSphere(.4,20,20);
+        glPopMatrix();
+        glColor3d(1,1,1);
+        glPushMatrix();
+        glTranslated(3.2+x,6.1,-19.9);
         glRotated(60,1,0,0);
         glutSolidSphere(.4,20,20);
         glPopMatrix();
@@ -425,6 +445,120 @@ int main(int argc, char**argv){
         glRotated(60,1,0,0);
         glutSolidSphere(.4,20,20);
         glPopMatrix();
+
+
+        /////////////////////////////////////////////////////
+        //house
+
+            glLoadIdentity();
+            glPushMatrix();  // building
+
+            glTranslatef(3, 1, -17.0f);
+            //  rotate around center
+            glRotatef(-35.0, -0.4, 1.0, 0.1);
+
+            glScalef(0.8, 0.8, 0.8); //Make the object bigger
+            glColor3f(1,0,1); //change the color of the object
+
+            glutSolidCube(3.0); // draw Flat Blue Box
+
+            glPopMatrix();
+
+            glPushMatrix();  // window r
+
+            glTranslatef(3, 1.2, -15.5f);
+            //  rotate around center
+            glRotatef(-35.0, -0.4, 1.0, 0.1);
+
+            glScalef(0.8, 0.8, 0.8); //Make the object bigger
+            glColor3f(0,0,0); //change the color of the object
+
+            glutSolidCube(0.8); // draw Flat Blue Box
+
+            glPopMatrix();
+
+            glPushMatrix();  // window l
+
+            glTranslatef(1.8, 1.4, -16.4f);
+            //  rotate around center
+            glRotatef(-35.0, -0.4, 1.0, 0.1);
+
+            glScalef(0.8, 0.8, 0.8); //Make the object bigger
+            glColor3f(0,0,0); //change the color of the object
+
+            glutSolidCube(0.8); // draw Flat Blue Box
+
+            glPopMatrix();
+
+            glPushMatrix();  // door
+
+            glTranslatef(2.4, 0.3, -16.4f);
+            //  rotate around center
+            glRotatef(-35.0, -0.4, 1.0, 0.1);
+
+            glScalef(0.8, 1.5, 0.8); //Make the object bigger
+            glColor3f(0,0,0); //change the color of the object
+
+            glutSolidCube(0.8); // draw Flat Blue Box
+
+            glPopMatrix();
+
+//////////////////////////////////////////////////////////////////////////////////
+               glLoadIdentity();
+               glPushMatrix();                  // Reset the model-view matrix
+
+
+    glTranslatef(3, 3.1, -17.0f);  // Move left and into the screen
+
+    glRotatef(-35.0, -0.4, 1.0, 0.1);  // Rotate about the (1,1,0)-axis
+    glScalef(1.5,0.9,2);
+    glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
+      // Front
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(-1.0f, -1.0f, 1.0f);
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(1.0f, -1.0f, 1.0f);
+
+      // Right
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(0.0f, 1.0f, 0.0f);
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(1.0f, -1.0f, 1.0f);
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(1.0f, -1.0f, -1.0f);
+
+      // Back
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(0.0f, 1.0f, 0.0f);
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(1.0f, -1.0f, -1.0f);
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(-1.0f, -1.0f, -1.0f);
+
+      // Left
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(-1.0f,-1.0f,-1.0f);
+                glColor3f(1.0f, 0.0f, 0.0f);     // Red
+
+      glVertex3f(-1.0f,-1.0f, 1.0f);
+        glEnd();   // Done drawing the pyramid
+        glPushMatrix();
+
 //            glPushMatrix();
 //            glTranslatef(0.0, -3.0, -20.0f);
 //            glRecti(0,5,-5,10);
@@ -469,6 +603,7 @@ int main(int argc, char**argv){
 //            glutSolidSphere(2,20,20);
 //            glPopMatrix();
             // glFlush();
+
           glutSwapBuffers();
 
     // Update the rotational angle after each refresh [NEW]
