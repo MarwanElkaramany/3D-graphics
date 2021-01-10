@@ -9,6 +9,7 @@
 static int slices = 16;
 static int stacks = 16;
 static int useFog = 0;
+static int tick = -1;
 float moonx=0,moony=0;
 float sunx=0,suny=0;
 float boatx;
@@ -92,17 +93,24 @@ void keyboard(unsigned char Key, int x, int y){
             }
         break;
 
-        case 'r' :
-                    if(rotatee==1)
-                    rotatee=0;
-                    else
-                        rotatee=1;
+        case 'r' : rotatee ? rotatee=0 : rotatee=1 ;
         break;
 
         case 27 : exit(0);
         break;
     }
 }
+
+void
+idle(void)
+{
+  tick++;
+  if (tick >= 120) {
+    tick = 0;
+  }
+  glutPostRedisplay();
+}
+
 void triangle(float x, float y){
     glLoadIdentity();                  // Reset the model-view matrix
     glTranslatef(x, y, -20.0f);  // Move left and into the screen
@@ -372,10 +380,7 @@ int main(int argc, char**argv){
             glPushMatrix();
             glColor3f(1.000, 0.647, 0.000);
             glTranslatef(-7.0, 6.0f, -20.0f);
-            glRotatef(anglePyramid,1,1,1);
-          //glScalef(2,2,2);
-
-           //glTranslatef(-5.0, 5.0f, -20.0f);
+            glRotatef((360.0 / (30 * 1)) * tick, 1, 0, 0);
             glutSolidSphere(1,20,20);
 
             glPopMatrix();
@@ -411,7 +416,9 @@ int main(int argc, char**argv){
    glLoadIdentity();
     tree(0,0,0);
     tree(4,-2,6);
-    tree(-1,-1,5);
+    tree(3,-1,3);
+    tree(0.2,-2,5.3);
+    tree(-1,-1,4);
 //    tree(4,0);
 //    tree(-2,1);
 //    tree(-2,-2);
@@ -442,6 +449,32 @@ int main(int argc, char**argv){
         glColor3d(1,1,1);
         glPushMatrix();
         glTranslated(3+x,6,-20);
+        glRotated(60,1,0,0);
+        glutSolidSphere(.4,20,20);
+        glPopMatrix();
+
+         glLoadIdentity();//clowd
+        glColor3d(1,1,1);
+        glPushMatrix();
+        glTranslated(-1.4+x,6-1,-20);
+        glRotated(60,1,0,0);
+        glutSolidSphere(.4,20,20);
+        glPopMatrix();
+        glColor3d(1,1,1);
+        glPushMatrix();
+        glTranslated(3.2+x-4.8,5.9-1,-20.1);
+        glRotated(60,1,0,0);
+        glutSolidSphere(.4,20,20);
+        glPopMatrix();
+        glColor3d(1,1,1);
+        glPushMatrix();
+        glTranslated(3.2+x-4.8,6.1-1,-19.9);
+        glRotated(60,1,0,0);
+        glutSolidSphere(.4,20,20);
+        glPopMatrix();
+        glColor3d(1,1,1);
+        glPushMatrix();
+        glTranslated(3+x-4.8,6-1,-20);
         glRotated(60,1,0,0);
         glutSolidSphere(.4,20,20);
         glPopMatrix();
@@ -559,61 +592,16 @@ int main(int argc, char**argv){
         glEnd();   // Done drawing the pyramid
         glPushMatrix();
 
-//            glPushMatrix();
-//            glTranslatef(0.0, -3.0, -20.0f);
-//            glRecti(0,5,-5,10);
-//            glPopMatrix();
-//        glLoadIdentity();
-//        glTranslated(-13,0,-45);
-//        glRotatef(40,1,1,0);
-//
-//        drawgrid();
-
-       // glLoadIdentity(); // resets coordination / replace current matrix with I matrix // for example when using glTranslate or glRotate
-        //(translating matrix current position not from origin so glLoadIdentity to start from origin
-       // glTranslatef(0.0,0.0,-15.0);
-        //glRotatef(10,1,1,0);
-//         glColor3f(1,0,1);
-//            glBegin(GL_POLYGON);
-//            glVertex2f(5+translateX,-5+translateY);
-//            glVertex2f(5+translateX,-8+translateY);
-//            glVertex2f(2+translateX,-8+translateY);
-//            glVertex2f(2+translateX,-5+translateY);
-//            glEnd();
-// glLoadIdentity();
-
-//        cube();
-//       // sphere();
-//    // Render a pyramid consists of 4 triangles
-//        triangle(-5.5,0);
-//        triangle(-3.5,0.5);
-//        triangle(-1.5,1);
-
-
-//        glLoadIdentity();
-//         glTranslatef(-1.0f, -4.0f, -15.0f);
-//        glRotatef(angleCube, 1.0f, 1.0f, 1.0f);
-//        //glColor3f(1,0,0);
-//        glutWireTeapot(1);
-//
-//            glPushMatrix();
-//            glLoadIdentity();
-//            glTranslatef(-1.5f, -3.0, -15.0f);  // Move left and into the screen
-//            glColor3f(1,0,0);
-//            glutSolidSphere(2,20,20);
-//            glPopMatrix();
-            // glFlush();
-
           glutSwapBuffers();
 
     // Update the rotational angle after each refresh [NEW]
-    if(rotatee){
-        anglesun+=0.05;
-    }
-  if(rotatee)
-   anglePyramid += 0.1f;
-   if(rotatee)
-   angleCube -= 0.05f;
+//    if(rotatee){
+//        anglesun+=0.05;
+//    }
+//  if(rotatee)
+//   anglePyramid += 0.1f;
+//   if(rotatee)
+//   angleCube -= 0.05f;
     }
     void idleFunc (void)
     {
