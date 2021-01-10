@@ -250,7 +250,7 @@ glLoadIdentity();
         glPopMatrix();
 }
 int main(int argc, char**argv){
-
+    sndPlaySound("MinecraftBackgroundMusic.wav",SND_ASYNC);
     glutInit(&argc , argv); // initialize glut
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE |GLUT_DEPTH);// display mode / goint to use rgb colors / and going to use double buffer for animation
     //initialize window
