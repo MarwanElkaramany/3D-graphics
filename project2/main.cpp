@@ -18,8 +18,9 @@ int COLOR=0;
 int direction=1;
 float red=0.412,green=0.412,blue=0.412,alpha;
 //int flag= 1;
+bool sunpos =1;
 int sunflag = 1;
-double anglesun;
+double anglesun=0;
 int moonflag=1;
 int boatflag =1;
 float angle=0;
@@ -44,7 +45,7 @@ void idleFunc();
 float xRotated = 90.0, yRotated = 0.0, zRotated = 0.0;
 void timer(int);
 GLfloat anglePyramid = 0.0f;  // Rotational angle for pyramid
-GLfloat angleCube = 0.0f;     // Rotational angle for cube
+double angleCube = 0.0;     // Rotational angle for cube
 int refreshMills = 15;        // refresh interval in milliseconds
 
 //void OnMouseClick(int button, int state, int x, int y)
@@ -379,7 +380,19 @@ int main(int argc, char**argv){
 
             glPushMatrix();
             glColor3f(1.000, 0.647, 0.000);
-            glTranslatef(-7.0, 6.0f, -20.0f);
+            if(sunpos){
+            glRotatef(angleCube,1,1,0);
+                    if(angleCube < -3)
+                        sunpos = 0;
+            }
+//            else{
+//                glRotatef(anglesun,1,1,0);
+//                    if(anglesun==0.3)
+//                        sunpos=1;
+//            }
+
+            glTranslatef(-7.5, 6.5f, -20.0f);
+            //glRotatef(anglesun,1,1,1);
             glRotatef((360.0 / (30 * 1)) * tick, 1, 0, 0);
             glutSolidSphere(1,20,20);
 
@@ -595,13 +608,13 @@ int main(int argc, char**argv){
           glutSwapBuffers();
 
     // Update the rotational angle after each refresh [NEW]
-//    if(rotatee){
-//        anglesun+=0.05;
-//    }
-//  if(rotatee)
-//   anglePyramid += 0.1f;
-//   if(rotatee)
-//   angleCube -= 0.05f;
+    if(rotatee){
+        anglesun+=0.05;
+    }
+  if(rotatee)
+   anglePyramid += 0.1f;
+   if(rotatee)
+   angleCube -= 0.05;
     }
     void idleFunc (void)
     {
